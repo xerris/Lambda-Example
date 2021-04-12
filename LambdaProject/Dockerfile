@@ -2,7 +2,7 @@ FROM amazon/aws-lambda-dotnet:core3.1 AS base
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
 
 WORKDIR /app
-COPY ./LambdaProject/LambdaProject/src ./
+COPY ./LambdaProject/src ./
 
 WORKDIR /app
 
