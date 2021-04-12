@@ -6,7 +6,6 @@
 
         <!-- This property makes the build directory similar to a publish directory and helps the AWS .NET Lambda Mock Test Tool find project dependencies. -->
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <RootNamespace>HelloWorld</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Amazon.Lambda.Core" Version="1.2.0" />

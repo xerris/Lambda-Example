@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>HelloWorld.Tests</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Amazon.Lambda.Core" Version="1.2.0" />
@@ -13,6 +12,6 @@
         <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\src\LambdaProject\LambdaProject.csproj" />
+        <ProjectReference Include="..\..\src\LambdaProject\LambdaProject.csproj" />
     </ItemGroup>
 </Project>
