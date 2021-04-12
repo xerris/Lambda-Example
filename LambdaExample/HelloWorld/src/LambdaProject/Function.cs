@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.S3Events;
@@ -40,15 +41,23 @@ namespace HelloWorld
         
         public async Task S3FunctionHandler(S3Event evnt, ILambdaContext context)
         {
-            // foreach (var message in evnt.Records)
-            // {
-            //     await ProcessMessageAsync(message, context);
-            // }
+            foreach (var message in evnt.Records)
+            {
+                await ProcessS3MessageAsync(message, context);
+            }
+            
         }
 
         private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
         {
             context.Logger.LogLine($"Processed message {message.Body}");
+
+            // TODO: Do interesting work based on the new message
+            await Task.CompletedTask;
+        }
+        private async Task ProcessS3MessageAsync(S3Event.S3EventNotificationRecord message, ILambdaContext context)
+        {
+            context.Logger.LogLine($"Processed message {message.S3.Bucket.Name}");
 
             // TODO: Do interesting work based on the new message
             await Task.CompletedTask;

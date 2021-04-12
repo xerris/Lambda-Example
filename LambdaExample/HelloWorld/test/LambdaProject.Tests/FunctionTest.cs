@@ -42,15 +42,18 @@ namespace HelloWorld.Tests
         [Fact]
         public async Task Tests3EventLambdaFunction()
         {
-            var sqsEvent = new S3Event()
+            var s3Event = new S3Event()
             {
                 Records = new List<S3Event.S3EventNotificationRecord>()
                 
             };
             var notificationRecord = new S3EventNotification.S3EventNotificationRecord();
+            notificationRecord.S3 = new S3EventNotification.S3Entity();
+            notificationRecord.S3.Bucket = new S3EventNotification.S3BucketEntity();
+            notificationRecord.S3.Object = new S3EventNotification.S3ObjectEntity();
             notificationRecord.S3.Bucket.Name = "gary";
             notificationRecord.S3.Object.Key = "test.csv";
-            sqsEvent.Records.Append(notificationRecord);
+            s3Event.Records.Add(notificationRecord);
 
             var logger = new TestLambdaLogger();
             var context = new TestLambdaContext
@@ -59,9 +62,9 @@ namespace HelloWorld.Tests
             };
 
             var function = new Function();
-            await function.S3FunctionHandler(sqsEvent, context);
+            await function.S3FunctionHandler(s3Event, context);
 
-            Assert.Contains("Processed message foobar", logger.Buffer.ToString());
+            Assert.Contains("Processed message gary", logger.Buffer.ToString());
         }
     }
 }
