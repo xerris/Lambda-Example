@@ -2,8 +2,9 @@ import * as sns from '@aws-cdk/aws-sns';
 import * as subs from '@aws-cdk/aws-sns-subscriptions';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as s3 from '@aws-cdk/aws-s3';
-import * as ecr from '@aws-cdk/aws-ecr';
+import * as sqs from '@aws-cdk/aws-sqs';
 import * as cdk from '@aws-cdk/core';
+import * as dynamodb from '@aws-cdk/aws-dynamodb';
 const path = require('path');
 
 export class InfrastructureStack extends cdk.Stack {
@@ -20,7 +21,20 @@ export class InfrastructureStack extends cdk.Stack {
       functionName: 's3Handler',
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../LambdaProject'), {
       cmd: [ "LambdaProject::LambdaProject.Function::S3FunctionHandler"]
-      })
-  });
+      })      
+    });
+
+    new sqs.Queue(this, 'Queue');
+
+    const sqsHandler = new lambda.DockerImageFunction(this, 'sqsHandler',{
+      functionName: 'sqsHandler',
+      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../LambdaProject'), {
+      cmd: [ "LambdaProject::LambdaProject.Function::SQSFunctionHandler"]
+      })      
+    });
+
+    const table = new dynamodb.Table(this, 'landingTable', {
+      partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING }
+    });
   }
 }

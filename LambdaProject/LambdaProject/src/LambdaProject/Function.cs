@@ -31,7 +31,7 @@ namespace HelloWorld
         /// <param name="evnt"></param>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
+        public async Task SQSFunctionHandler(SQSEvent evnt, ILambdaContext context)
         {
             foreach (var message in evnt.Records)
             {

@@ -34,7 +34,7 @@ namespace HelloWorld.Tests
             };
 
             var function = new Function();
-            await function.FunctionHandler(sqsEvent, context);
+            await function.SQSFunctionHandler(sqsEvent, context);
 
             Assert.Contains("Processed message foobar", logger.Buffer.ToString());
         }
