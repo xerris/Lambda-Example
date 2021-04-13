@@ -21,7 +21,7 @@ export class InfrastructureStack extends cdk.Stack {
     const s3Handler = new lambda.DockerImageFunction(this, 's3Handler',{
       functionName: 's3Handler',
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../LambdaProject'), {
-      cmd: [ "LambdaProject::LambdaProject.Function::S3FunctionHandler"]
+      cmd: [ "LambdaProject::HelloWorld.Function::S3FunctionHandler"]
       })      
     });
 
@@ -31,12 +31,13 @@ export class InfrastructureStack extends cdk.Stack {
 
     const queue = new sqs.Queue(this, 'Queue');
 
+    bucket.grantRead(s3Handler);
     queue.grantSendMessages(s3Handler);
 
     const sqsHandler = new lambda.DockerImageFunction(this, 'sqsHandler',{
       functionName: 'sqsHandler',
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../LambdaProject'), {
-      cmd: [ "LambdaProject::LambdaProject.Function::SQSFunctionHandler"]
+      cmd: [ "LambdaProject::HelloWorld.Function::SQSFunctionHandler"]
       })      
     });
 
