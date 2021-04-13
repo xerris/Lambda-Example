@@ -61,7 +61,7 @@ namespace HelloWorld
         {
             foreach (var message in evnt.Records)
             {
-                await ProcessMessageAsync(message, context);
+                await ProcessSQSMessageAsync(message, context);
             }
         }
         
@@ -74,11 +74,11 @@ namespace HelloWorld
             
         }
 
-        private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
+        private async Task ProcessSQSMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
         {
             context.Logger.LogLine($"Processed message {message.Body}");
             await WriteMessage(message.Body);
-            await sqsClient.DeleteQueueAsync(message.ReceiptHandle);
+            await DeletemFromQueue(message.ReceiptHandle);
             await Task.CompletedTask;
         }
         private async Task ProcessS3MessageAsync(S3Event.S3EventNotificationRecord message, ILambdaContext context)
