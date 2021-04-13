@@ -28,7 +28,10 @@ export class InfrastructureStack extends cdk.Stack {
     const s3eventSource = s3Handler.addEventSource(new lambdaSources.S3EventSource(bucket, {
       events: [ s3.EventType.OBJECT_CREATED, s3.EventType.OBJECT_REMOVED ]
     }));
+
     const queue = new sqs.Queue(this, 'Queue');
+
+    queue.grantSendMessages(s3Handler);
 
     const sqsHandler = new lambda.DockerImageFunction(this, 'sqsHandler',{
       functionName: 'sqsHandler',
@@ -42,5 +45,8 @@ export class InfrastructureStack extends cdk.Stack {
     const table = new dynamodb.Table(this, 'landingTable', {
       partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING }
     });
+
+    table.grantReadWriteData(sqsHandler);
+    queue.grantConsumeMessages(sqsHandler);
   }
 }

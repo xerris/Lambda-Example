@@ -22,9 +22,6 @@
     <list default="true" id="ca13fe73-1325-47ef-a0e7-7937d884641e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.LambdaProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LambdaProject/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LambdaProject/src/LambdaProject/Function.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LambdaProject/src/LambdaProject/Function.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LambdaProject/src/LambdaProject/LambdaProject.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/LambdaProject/src/LambdaProject/LambdaProject.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LambdaProject/test/LambdaProject.Tests/FunctionTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/LambdaProject/test/LambdaProject.Tests/FunctionTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LambdaProject/test/LambdaProject.Tests/LambdaProject.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/LambdaProject/test/LambdaProject.Tests/LambdaProject.Tests.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +37,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/LambdaProject/src/LambdaProject/Function.cs" />
         <option value="$PROJECT_DIR$/LambdaProject/test/LambdaProject.Tests/FunctionTest.cs" />
+        <option value="$PROJECT_DIR$/LambdaProject/src/LambdaProject/Function.cs" />
       </list>
     </option>
   </component>
@@ -72,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1618265036440</updated>
-      <workItem from="1618265053548" duration="9785000" />
+      <workItem from="1618265053548" duration="10975000" />
     </task>
     <servers />
   </component>

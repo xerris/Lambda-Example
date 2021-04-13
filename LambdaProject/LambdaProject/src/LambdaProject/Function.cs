@@ -78,7 +78,7 @@ namespace HelloWorld
         {
             context.Logger.LogLine($"Processed message {message.Body}");
             await WriteMessage(message.Body);
-            // TODO: Do interesting work based on the new message
+            await sqsClient.DeleteQueueAsync(message.ReceiptHandle);
             await Task.CompletedTask;
         }
         private async Task ProcessS3MessageAsync(S3Event.S3EventNotificationRecord message, ILambdaContext context)
@@ -86,11 +86,15 @@ namespace HelloWorld
             context.Logger.LogLine($"Processed message {message.S3.Bucket.Name}");
 
             var csv = await ReadObjectDataAsync(message.S3.Bucket.Name, message.S3.Object.Key);
+            context.Logger.LogLine($"read csv");
             var mappedCsv = StripCSV(csv);
+            context.Logger.LogLine($"mapped message {csv}");
             foreach (var row in mappedCsv)
             {
+                context.Logger.LogLine($"sending message {row}");
                 await PushToQueue(row);
             }
+            context.Logger.LogLine($"Finished{message.S3.Bucket.Name}");
             await Task.CompletedTask;
         }
         
@@ -155,6 +159,16 @@ namespace HelloWorld
                 MessageBody = row
             };
             return await sqsClient.SendMessageAsync(sendMessageRequest);
+        }
+        
+        public async Task<DeleteMessageResponse> DeletemFromQueue(String row)
+        {
+            var sendMessageRequest = new DeleteMessageRequest()
+            {
+                QueueUrl = "https://sqs.ca-central-1.amazonaws.com/370365354210/InfrastructureStack-Queue4A7E3555-1T8MO6ROKLJ7Y",
+                ReceiptHandle = row
+            };
+            return await sqsClient.DeleteMessageAsync(sendMessageRequest);
         }
         
         public async Task<PutItemResponse> WriteMessage(String message)
