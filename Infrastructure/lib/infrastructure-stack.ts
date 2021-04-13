@@ -4,6 +4,7 @@ import * as lambda from '@aws-cdk/aws-lambda';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as sqs from '@aws-cdk/aws-sqs';
 import * as cdk from '@aws-cdk/core';
+import { Duration } from '@aws-cdk/core';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
 import * as lambdaSources from '@aws-cdk/aws-lambda-event-sources';
 const path = require('path');
@@ -20,8 +21,9 @@ export class InfrastructureStack extends cdk.Stack {
 
     const s3Handler = new lambda.DockerImageFunction(this, 's3Handler',{
       functionName: 's3Handler',
+      timeout: Duration.seconds(900),
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../LambdaProject'), {
-      cmd: [ "LambdaProject::HelloWorld.Function::S3FunctionHandler"]
+      cmd: [ "LambdaProject::HelloWorld.Function::S3FunctionHandler"],
       })      
     });
 
@@ -36,6 +38,7 @@ export class InfrastructureStack extends cdk.Stack {
 
     const sqsHandler = new lambda.DockerImageFunction(this, 'sqsHandler',{
       functionName: 'sqsHandler',
+      timeout: Duration.seconds(900),
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../LambdaProject'), {
       cmd: [ "LambdaProject::HelloWorld.Function::SQSFunctionHandler"]
       })      
